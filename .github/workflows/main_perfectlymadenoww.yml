@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'perfectlymadenoww'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2B70F46C119F4EBFB6837187AC89FD25 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_45C9F9B5FBC24B218F9D48A0B46E876F }}
           package: .
