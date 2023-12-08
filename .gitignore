@@ -117,3 +117,4 @@ AutomationSystem.Main.Web/App_Data/Reports/_Temporary/*.xlsx
 ################
 # Git artifacts
 *.orig
+/packages/System.Runtime.CompilerServices.Unsafe.6.0.0
