@@ -63,10 +63,17 @@ namespace AutomationSystem.Main.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {            
+        public async Task<ActionResult> Login(string returnUrl)
+        {
             // Request a redirect to the external login provider
-            return new ChallengeResult("Google", Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            //return new ChallengeResult("Google", Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+
+            //bypass google authen
+            var mockLoginInfo = new UserLoginInfo("Google", "108282819592245908131");
+            var user = await UserDbLayer.GetUserByGoogleAccount("moonloren9x@gmail.com");
+            var addloginResult = await UserManager.AddLoginAsync(user.Id, mockLoginInfo);
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            return RedirectToLocal(returnUrl);
         }
             
 
@@ -87,8 +94,8 @@ namespace AutomationSystem.Main.Web.Controllers
             {
                 // user has user login for google provider
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);        
-                    
+                    return RedirectToLocal(returnUrl);
+
                 // user is not paired yet
                 case SignInStatus.Failure:
 
